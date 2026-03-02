@@ -22,6 +22,7 @@ import { defaultRuntime } from "../../runtime.js";
 import { formatCliCommand } from "../command-format.js";
 import { inheritOptionFromParent } from "../command-options.js";
 import { forceFreePortAndWait } from "../ports.js";
+import { collectOption } from "../program/helpers.js";
 import { ensureDevGatewayConfig } from "./dev.js";
 import { runGatewayLoop } from "./run-loop.js";
 import {
@@ -453,6 +454,8 @@ export function addGatewayRunCommand(cmd: Command): Command {
     .option(
       "--mdns-interface <interface>",
       "Network interface to use for mDNS discovery (can be specified multiple times). Example: --mdns-interface eth0 --mdns-interface wlan0",
+      collectOption,
+      [],
     )
     .action(async (opts, command) => {
       await runGatewayCommand(resolveGatewayRunOptions(opts, command));
